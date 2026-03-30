@@ -101,4 +101,4 @@ const game = new Phaser.Game(config);
 ```
 
 Each scene in our game needs to be added to the list of scenes in our game config. Now our game should look like this:
-*screenshots*
+![title screen](https://github.com/DylanCheetah/bubble-popper/blob/main/lessons/screenshots/02-title_screen.png?raw=true)
