@@ -6,6 +6,8 @@
 
 import Phaser from "phaser";
 
+import TitleScreen from "./scenes/titleScreen";
+
 
 // Configure Phaser
 const config = {
@@ -20,6 +22,8 @@ const config = {
     physics: {
         default: "arcade"
     },
-    scene: []
+    scene: [
+        new TitleScreen("TitleScreen")
+    ]
 };
 const game = new Phaser.Game(config);
