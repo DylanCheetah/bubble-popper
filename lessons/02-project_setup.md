@@ -88,4 +88,4 @@ npm run serve
 ```
 
 If you visit http://127.0.0.1:8000/ in a web browser, you should see this:
-*screenshot*
+![homepage](https://github.com/DylanCheetah/bubble-popper/blob/main/lessons/screenshots/01-homepage.png?raw=true)
