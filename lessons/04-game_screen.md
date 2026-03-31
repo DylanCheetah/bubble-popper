@@ -169,4 +169,4 @@ export default class TitleScreen extends Phaser.Scene {
 ```
 
 The `on` method of the `input` attribute is used to assign a callback to an input event. In this case we want to handle the "pointerdown" event. The callback we assigned will call the `start` method of the `scene` attribute to stop the title screen scene and start the game screen scene. Now we should be able to click the title screen to start the game. Afterwards, you should see bubbles spawning randomly and bouncing around:
-*screenshot*
+![game screen](https://github.com/DylanCheetah/bubble-popper/blob/main/lessons/screenshots/03-game_screen.png?raw=true)
