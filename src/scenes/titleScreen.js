@@ -45,6 +45,12 @@ export default class TitleScreen extends Phaser.Scene {
             fixedHeight: 32,
             align: "center"
         });
+
+        // Configure event handling
+        this.input.on("pointerdown", () => {
+            // Switch to the game screen
+            this.scene.start("GameScreen");
+        });
     }
 
     update(time, delta) {
