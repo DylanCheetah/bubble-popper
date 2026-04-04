@@ -18,9 +18,18 @@ export default class GameScreen extends Phaser.Scene {
             frameWidth: 32,
             frameHeight: 32
         });
+
+        // Load images
+        this.load.image("Needle", "assets/sprites/Needle.png");
+
+        // Load audio
+        this.load.audio("Bubble-Pop", "assets/sfx/Bubble-Pop.wav");
     }
 
     create() {
+        // Hide the mouse cursor
+        this.input.setDefaultCursor("none");
+
         // Create bubble group
         const bubbles = this.physics.add.group({
             defaultKey: "Bubble-Pop",
@@ -42,8 +51,32 @@ export default class GameScreen extends Phaser.Scene {
             maxSize: 25
         });
 
+        // Create needle
+        this.needle = this.physics.add.sprite(0, 0, "Needle", 0)
+            .setDepth(1)
+            .setDirectControl();
+
+        // Create animations
+        this.anims.create({
+            key: "Bubble-Pop",
+            frames: this.anims.generateFrameNumbers("Bubble-Pop", {start: 0, end: 7}),
+            frameRate: 12
+        });
+
         // Configure collision detection
         this.physics.add.collider(bubbles, bubbles);
+        this.physics.add.overlap(this.needle, bubbles, (needle, bubble) => {
+            // Disable physics for the bubble and play the popping animation
+            bubble.body.enable = false;
+            bubble.play("Bubble-Pop");
+            bubble.on("animationcomplete", () => {
+                // Destroy the bubble
+                bubble.destroy();
+            });
+
+            // Play popping sound effect
+            this.sound.play("Bubble-Pop");
+        });
 
         // Generate a random bubble every 500 ms
         this.time.addEvent({
@@ -57,5 +90,11 @@ export default class GameScreen extends Phaser.Scene {
             },
             loop: true
         });
+    }
+
+    update(time, delta) {
+        // Move the needle to the mouse position
+        const pointer = this.input.activePointer;
+        this.needle.setPosition(pointer.x, pointer.y);
     }
 }

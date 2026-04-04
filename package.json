@@ -22,7 +22,7 @@
   "scripts": {
     "build": "npm run build:copy && npm run build:vendor && npm run build:bundle",
     "serve": "npm run build:copy && npm run build:vendor && npm run serve:budo",
-    "build:copy": "copyfiles -f src/index.html dist/ && copyfiles -u 1 src/assets/fonts/*.ttf src/assets/sprites/*.png dist/",
+    "build:copy": "copyfiles -f src/index.html dist/ && copyfiles -u 1 src/assets/fonts/*.ttf src/assets/sfx/*.wav src/assets/sprites/*.png dist/",
     "build:vendor": "browserify -r phaser | uglifyjs --compress --mangle > dist/vendor.js",
     "build:bundle": "browserify src/main.js -x phaser | uglifyjs --compress --mangle > dist/bundle.js",
     "serve:budo": "budo src/main.js -p 8000 --serve /bundle.js --live --dir dist/ -d -- -x phaser",
