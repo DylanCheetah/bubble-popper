@@ -119,4 +119,4 @@ export default class GameScreen extends Phaser.Scene {
 ```
 
 We add an `init` method that intializes the score to 0 by setting the `score` attribute. In our `create` method we create a text object to display our current score and call its `setDepth` method to ensure that it will appear on top of all other game objects by using a depth of 100. Then we modify the callback that handles bubbles colliding with the needle so that it adds 100 to the score and changes the text of the text object. If we play our game now it will show a score in the upper left corner of the screen which will be updated as we pop bubbles:
-*screenshot*
+![keeping score](https://github.com/DylanCheetah/bubble-popper/blob/main/lessons/screenshots/05-keeping_score.png?raw=true)
