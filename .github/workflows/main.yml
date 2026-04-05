@@ -19,6 +19,7 @@ jobs:
     - name: Build Project
       run: |
         npm run build
+        mv src/ghp-index.html dist/index.html
     - name: Deploy to GitHub Pages
       run: |
         git config --global user.name "GitHub Actions"
