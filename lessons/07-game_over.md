@@ -212,4 +212,4 @@ export default class GameScreen extends Phaser.Scene {
 ```
 
 In our `create` method we create a text object for our timer. This time we will set its origin to the upper center in addition to setting the depth. We also assign it to the `time_display` attribute so we can access it from our `update` method later. Then we create a new timer which will fire after 5 minutes (300000 milliseconds) have elapsed. The callback for this timer will set the default mouse cursor to the default arrow, pause the game screen, and launch the game over screen. We also assign this timer to the `game_timer` attribute so we can access it from our `update` method. In our `update` method we will set the time display to the remaining seconds rounded to the nearest second. If we play our game at this point it should show the game over screen once the timer has reached 0. And we can click to return to the title screen:
-*screenshot*
+![game over](https://github.com/DylanCheetah/bubble-popper/blob/main/lessons/screenshots/06-game_over.png?raw=true)
