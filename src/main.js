@@ -6,6 +6,7 @@
 
 import Phaser from "phaser";
 
+import GameOverScreen from "./scenes/gameOverScreen";
 import GameScreen from "./scenes/gameScreen";
 import TitleScreen from "./scenes/titleScreen";
 
@@ -25,7 +26,8 @@ const config = {
     },
     scene: [
         new TitleScreen("TitleScreen"),
-        new GameScreen("GameScreen")
+        new GameScreen("GameScreen"),
+        new GameOverScreen("GameOverScreen")
     ]
 };
 const game = new Phaser.Game(config);

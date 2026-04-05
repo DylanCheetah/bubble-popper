@@ -1,3 +1,80 @@
+# Lesson 07: Game Over
+
+Now that we are able to pop bubbles and keep score we need to determine when the game is over. For this game, we will add a timer which will count down and end the game when it hits 0. We will also need to create a suitable game over screen. Let's start by creating `bubble-popper/src/scenes/gameOverScreen.js` with the following content:
+```js
+/*
+ * gameOverScreen.js
+ *
+ * The game over screen for the bubble popping game.
+ */
+
+import Phaser from "phaser";
+
+
+// Game Over Screen
+export default class GameOverScreen extends Phaser.Scene {
+    preload() {
+        // Load fonts
+        this.load.font("PixelOperatorMono", "assets/fonts/PixelOperatorMono.ttf");
+    }
+
+    create() {
+        // Create heading
+        this.add.text(400, 300, "Game Over", {
+            fontFamily: "PixelOperatorMono",
+            fontSize: 64
+        }).setOrigin(.5, .5);
+
+        // Configure input
+        this.input.on("pointerdown", () => {
+            // Return to the title screen
+            this.scene.stop("GameScreen")
+                .stop("GameOverScreen")
+                .launch("TitleScreen");
+        });
+    }
+}
+```
+
+Most of the concepts used to create the game over screen are ones we already learned for our title screen. However, you will notice that this time we omitted the `fixedWidth`, `fixedHeight`, and `align` options for our heading text. Instead we called `setOrigin`. The `setOrigin` method is used to set the point by which a game object will be positioned, rotated, and scaled. The origin is given as a fraction of the width and height of the game object. For example, (0, 0) is always the upper left corner of the game object, (.5, .5) is always the center, and (1, 1) is always the lower right corner. Also, we need to stop the game screen and game over screen before launching the title screen because we will be overlaying the game over screen on top of the game screen. Next we need to add our game over screen to our game config in `bubble-popper/src/main.js`:
+```js
+/*
+ * main.js
+ *
+ * The main script for the bubble popper game.
+ */
+
+import Phaser from "phaser";
+
+import GameOverScreen from "./scenes/gameOverScreen";
+import GameScreen from "./scenes/gameScreen";
+import TitleScreen from "./scenes/titleScreen";
+
+
+// Configure Phaser
+const config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    pixelArt: true,
+    scale: {
+        mode: Phaser.Scale.NONE,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+    physics: {
+        default: "arcade"
+    },
+    scene: [
+        new TitleScreen("TitleScreen"),
+        new GameScreen("GameScreen"),
+        new GameOverScreen("GameOverScreen")
+    ]
+};
+const game = new Phaser.Game(config);
+```
+
+Now we need to open `bubble-popper/src/scenes/gameScreen.js` and modify it like this:
+```js
 /*
  * gameScreen.js
  *
@@ -132,3 +209,7 @@ export default class GameScreen extends Phaser.Scene {
         this.time_display.setText(`${Phaser.Math.RoundTo(this.game_timer.getRemainingSeconds(), 0)}`);
     }
 }
+```
+
+In our `create` method we create a text object for our timer. This time we will set its origin to the upper center in addition to setting the depth. We also assign it to the `time_display` attribute so we can access it from our `update` method later. Then we create a new timer which will fire after 5 minutes (300000 milliseconds) have elapsed. The callback for this timer will set the default mouse cursor to the default arrow, pause the game screen, and launch the game over screen. We also assign this timer to the `game_timer` attribute so we can access it from our `update` method. In our `update` method we will set the time display to the remaining seconds rounded to the nearest second. If we play our game at this point it should show the game over screen once the timer has reached 0. And we can click to return to the title screen:
+*screenshot*
