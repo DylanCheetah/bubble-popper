@@ -20,12 +20,13 @@ Now we need to create a `bubble-popper/src/` folder for our source code and a `b
         <script src="/vendor.js"></script>
     </head>
     <body>
+        <div id="root"></div>
         <script src="/bundle.js"></script>
     </body>
 </html>
 ```
 
-This file will be the homepage for our game. It sets the viewport width to the width of the screen, sets the initial scale to 1, sets the title of our game, loads the `vendor.js` script, and runs the `bundle.js` script. `vendor.js` will contain the dependencies for our game and `bundle.js` will contain all the code for our game. Next we need to create `bubble-popper/src/main.js` with the following content:
+This file will be the homepage for our game. It sets the viewport width to the width of the screen, sets the initial scale to 1, sets the title of our game, loads the `vendor.js` script, creates a root `div` element, and runs the `bundle.js` script. `vendor.js` will contain the dependencies for our game and `bundle.js` will contain all the code for our game. Next we need to create `bubble-popper/src/main.js` with the following content:
 ```js
 /*
  * main.js
@@ -38,12 +39,12 @@ import Phaser from "phaser";
 
 // Configure Phaser
 const config = {
+    parent: "root",
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    pixelArt: true,
     scale: {
-        mode: Phaser.Scale.NONE,
+        mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     physics: {
@@ -54,7 +55,7 @@ const config = {
 const game = new Phaser.Game(config);
 ```
 
-This code will create a new Phaser game. If WebGL is available it will be used as the renderer. Otherwise, we will use the canvas renderer as a fallback. The size of the game display is set to 800x600. We enable pixel art mode to disable antialiasing and round coordinates to the nearest pixel. We set the scale mode to no scaling and center the game display on the webpage. We set the physics engine to arcade physics. And for now we leave the list of scenes empty. Now we need to open `bubble-popper/package.json` and modify the scripts list like this:
+This code will create a new Phaser game. The `div` element with the "root" ID will be used as the container for our game. If WebGL is available it will be used as the renderer. Otherwise, we will use the canvas renderer as a fallback. The size of the game display is set to 800x600. We set the scale mode to `FIT` and center the game display on the webpage. We set the physics engine to arcade physics. And for now we leave the list of scenes empty. Now we need to open `bubble-popper/package.json` and modify the scripts list like this:
 ```json
   "scripts": {
     "build": "npm run build:copy && npm run build:vendor && npm run build:bundle",

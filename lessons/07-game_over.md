@@ -53,12 +53,12 @@ import TitleScreen from "./scenes/titleScreen";
 
 // Configure Phaser
 const config = {
+    parent: "root",
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    pixelArt: true,
     scale: {
-        mode: Phaser.Scale.NONE,
+        mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     physics: {

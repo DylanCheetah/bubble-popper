@@ -75,18 +75,19 @@ The `preload` method of our game screen loads the font and spritesheet we will b
 
 import Phaser from "phaser";
 
+import GameOverScreen from "./scenes/gameOverScreen";
 import GameScreen from "./scenes/gameScreen";
 import TitleScreen from "./scenes/titleScreen";
 
 
 // Configure Phaser
 const config = {
+    parent: "root",
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    pixelArt: true,
     scale: {
-        mode: Phaser.Scale.NONE,
+        mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     physics: {
